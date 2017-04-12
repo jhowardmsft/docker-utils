@@ -27,7 +27,7 @@ param (
 #    environ opencontainers runc
 #    environ docker engine-api
 #    environ opencontainers specs
-#    environ docker containerd
+#    environ containerd containerd
 # -------------------------------------------------------------------------------------------------     
 
 
@@ -43,18 +43,20 @@ $env:DOCKER_HOST=""
 #$env:DOCKER_CLIENTONLY=1
 cd "$gitRoot\src\github.com\$base\$repo"
 
-Write-Output ""
-Get-Content "$repoDrive`:\docker\utils\docker.ascii"
-Write-Output ""
-
 # -------- GOPATH Madness ------------
 
 if ($repo -eq "docker") {
+Write-Output ""
+Get-Content "$repoDrive`:\docker\utils\docker.ascii"
+Write-Output ""
     $env:GOPATH=$gitRoot
     Write-Output "To build docker, run make.ps1 -Binary"
 }
 # On libnetwork we need the Godeps\_workspace directory
 if ($repo -eq "libnetwork") {
+Write-Output ""
+Get-Content "$repoDrive`:\docker\utils\docker.ascii"
+Write-Output ""
     #TODO set GOPATH=%GOPATH%;%GITROOT%\src\github.com\docker\libnetwork\Godeps\_workspace;%GITROOT%
     Write-Output   including libnetwork\Godeps\_workspace             [libnetwork]...
     Write-Output   godep go build -v -o .                             ^[To build libnetwork^]
@@ -62,6 +64,9 @@ if ($repo -eq "libnetwork") {
 
 # On runc we need the Godeps\_workspace directory
 if ($repo -eq "runc") {
+Write-Output ""
+Get-Content "$repoDrive`:\docker\utils\docker.ascii"
+Write-Output ""
     #TODO set GOPATH=%GITROOT%\src\github.com\opencontainers\runc\Godeps\_workspace;%GITROOT%
     Write-Output   including libnetwork\Godeps\_workspace             [runc]...
     Write-Output   godep go build -v -o runc .                        ^[To build runc^]
@@ -69,9 +74,13 @@ if ($repo -eq "runc") {
 
 # On containerd we need the vendor directory
 if ($repo -eq "containerd") {
-    #TODO set GOPATH=%GITROOT%\src\github.com\docker\containerd\vendor;%GITROOT%
-    Write-Output   including containerd\vendor                         [containerd]...
-    Write-Output   bcontainerd                                         ^[To build containerd^]
+Write-Output ""
+Get-Content "$repoDrive`:\docker\utils\containerd.ascii"
+Write-Output ""
+    $env:GOPATH=$gitRoot
+    #TODO set GOPATH=%GITROOT%\src\github.com\containerd\containerd\vendor;%GITROOT%
+    #Write-Output   including containerd\vendor                         [containerd]...
+    #Write-Output   bcontainerd                                         ^[To build containerd^]
 }
 
 Write-Output ""

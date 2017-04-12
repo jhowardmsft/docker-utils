@@ -101,6 +101,12 @@ foreach ($line in [System.IO.File]::ReadLines((join-path ($pwd) -ChildPath $inpu
             if ($line -match "net.runtime_pollWait") {
                 $out+=",net.runtime_pollWait" #keep going for HTTP server
             }
+            if ($line -match "hcsCreateComputeSystem") {
+                $out+=",hcsCreateComputeSystem (**** Stuck ****???)"
+            }
+            if ($line -match "zhcsshim.go") {
+                $out+=",zhcsshim"
+            }
             if ($line -match "created by net/http.\(\*Server\).Serve") {
                 $searching=$false
                 $out+=",HTTP server"
