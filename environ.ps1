@@ -33,7 +33,7 @@ param (
 
 $repoDrive="e"
 $repoRoot="$repoDrive`:\go"
-$env:PATH="$repoDrive`:\docker\utils;$repoRoot\src\github.com\docker\docker\bundles;$repoRoot\src\github.com\docker\docker\hack;$repoRoot\bin;C:\Program Files\Git\usr\bin;c:\gcc\bin;$env:PATH"
+$env:PATH="$repoDrive`:\docker\utils;$repoRoot\bin;C:\Program Files\Git\usr\bin;c:\gcc\bin;$env:PATH"
 
 $gitRoot=$repoRoot
 $env:GOARCH="amd64"
@@ -47,6 +47,7 @@ cd "$gitRoot\src\github.com\$base\$repo"
 
 if ($repo -eq "docker") {
 Write-Output ""
+$env:PATH="$repoRoot\src\github.com\docker\docker\bundles;$repoRoot\src\github.com\docker\docker\hack;$env:PATH"
 Get-Content "$repoDrive`:\docker\utils\docker.ascii"
 Write-Output ""
     $env:GOPATH=$gitRoot
