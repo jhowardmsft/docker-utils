@@ -6,7 +6,7 @@ if ($env:JENKINS_PASSWORD.length -eq 0) {
 }
 Import-AzureRmContext -Path "c:\AzureProfile.json"
 $nodeID = Read-Host -Prompt 'Server node ID (eg 99 for jenkins-rs4-99)'
-$vmName="jenkins-rs1-$nodeID"
+$vmName="jenkins-rs4-$nodeID"
 $vm = Get-AzureRMVM -name $vmName -resourcegroupname winrs
 #$ep = Get-AzureEndpoint -vm $vm | Where-Object { $_.Name -eq 'RemoteDesktop' }
 cmdkey /generic:$vmName.westus2.cloudapp.azure.com /user:jenkins /pass:$env:JENKINS_PASSWORD

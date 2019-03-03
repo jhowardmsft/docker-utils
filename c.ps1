@@ -1,1 +1,1 @@
-cd e:\go\src\github.com\containerd\containerd\cmd\containerd
+cd e:\go\src\github.com\containerd\containerd

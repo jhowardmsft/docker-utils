@@ -1,0 +1,1 @@
+wpr.exe -stop e:\docker\utils\ContainerPlatform.etl

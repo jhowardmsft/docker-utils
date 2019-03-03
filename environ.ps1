@@ -39,20 +39,31 @@ $gitRoot=$repoRoot
 $env:GOARCH="amd64"
 $env:GOOS="windows"
 $env:GOEXE=".exe"
-$env:DOCKER_HOST=""
-#$env:DOCKER_CLIENTONLY=1
 cd "$gitRoot\src\github.com\$base\$repo"
 
 # -------- GOPATH Madness ------------
 
 if ($repo -eq "docker") {
 Write-Output ""
-$env:PATH="$repoRoot\src\github.com\docker\docker\bundles;$repoRoot\src\github.com\docker\docker\hack;$env:PATH"
+#$hcsshim="$repoRoot\src\github.com\Microsoft\hcsshim\"
+#$containerd="$repoRoot\src\github.com\containerd\containerd"
+$engine="$repoRoot\src\github.com\docker\docker"
+#$cli="$repoRoot\src\github.com\docker\cli"
+
+#$env:PATH="e:\binaries;$engine\hack;$env:PATH"
+$env:PATH="e:\binaries;$env:PATH"
 Get-Content "$repoDrive`:\docker\utils\docker.ascii"
 Write-Output ""
     $env:GOPATH=$gitRoot
     Write-Output "To build docker, run make.ps1 -Binary"
-}
+	#$env:BUILD_WINDOWS_V2=1
+	#Write-Output "Have set BUILD_WINDOWS_V2=1 for containerd compilation"
+
+	$env:DOCKER_WINDOWS_CONTAINERD_RUNTIME=1
+	Write-Output "Have set DOCKER_WINDOWS_CONTAINERD_RUNTIME=1 for containerd runtime."
+	Write-Output "Need to add --containerd \\.\pipe\containerd-containerd as well"
+	
+	}
 # On libnetwork we need the Godeps\_workspace directory
 if ($repo -eq "libnetwork") {
 Write-Output ""
@@ -61,16 +72,6 @@ Write-Output ""
     #TODO set GOPATH=%GOPATH%;%GITROOT%\src\github.com\docker\libnetwork\Godeps\_workspace;%GITROOT%
     Write-Output   including libnetwork\Godeps\_workspace             [libnetwork]...
     Write-Output   godep go build -v -o .                             ^[To build libnetwork^]
-}
-
-# On runc we need the Godeps\_workspace directory
-if ($repo -eq "runc") {
-Write-Output ""
-Get-Content "$repoDrive`:\docker\utils\docker.ascii"
-Write-Output ""
-    #TODO set GOPATH=%GITROOT%\src\github.com\opencontainers\runc\Godeps\_workspace;%GITROOT%
-    Write-Output   including libnetwork\Godeps\_workspace             [runc]...
-    Write-Output   godep go build -v -o runc .                        ^[To build runc^]
 }
 
 # On containerd we need the vendor directory

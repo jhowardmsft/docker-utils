@@ -1,0 +1,1 @@
+wpr.exe -start e:\docker\utils\ContainerPlatform.wprp

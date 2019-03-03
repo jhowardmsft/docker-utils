@@ -1,0 +1,1 @@
+wpa e:\docker\utils\containerplatform.etl
